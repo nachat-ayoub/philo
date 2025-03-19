@@ -1,1 +1,1 @@
-# Philosophers (-_-)
+# Philosophers
