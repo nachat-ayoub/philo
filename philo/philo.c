@@ -6,13 +6,13 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:07:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/03/18 17:51:32 by anachat          ###   ########.fr       */
+/*   Updated: 2025/03/19 14:34:23 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	printf("ac: %d\n", ac);
 	printf("av: %s\n", av[0]);
