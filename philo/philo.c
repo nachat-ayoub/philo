@@ -6,15 +6,28 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:07:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/03/19 14:34:23 by anachat          ###   ########.fr       */
+/*   Updated: 2025/03/21 10:47:20 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void *routine(void *arg)
+{
+	printf("Thread says: %s\n", (char *)arg);
+	return ("NULL");
+}
+
 int	main(int ac, char **av)
 {
-	printf("ac: %d\n", ac);
-	printf("av: %s\n", av[0]);
+	pthread_t t1;
+
+	(void)ac;
+	(void)av;
+
+	void *res = NULL;
+	pthread_create(&t1, NULL, &routine, "Hi!");
+	pthread_join(t1, NULL);
+
 	return 0;
 }
