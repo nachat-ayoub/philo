@@ -6,7 +6,7 @@
 #    By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/18 16:11:02 by anachat           #+#    #+#              #
-#    Updated: 2025/03/19 14:35:16 by anachat          ###   ########.fr        #
+#    Updated: 2025/04/05 11:05:32 by anachat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME        =   philo
 CC          =   cc
 CFLAGS      =   -Wall -Wextra -Werror
 
-SRCS        =   philo.c utils.c
+SRCS        =   philo.c utils.c parse.c
 OBJS        =   $(SRCS:.c=.o)
 
 all: $(NAME)

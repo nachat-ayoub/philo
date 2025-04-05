@@ -6,28 +6,40 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:07:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/04/03 16:10:28 by anachat          ###   ########.fr       */
+/*   Updated: 2025/04/05 11:44:21 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void *routine(void *arg)
+
+void	print_data(t_data *data)
 {
-	printf("Thread says: %s\n", (char *)arg);
-	return ("NULL");
+	if (!data)
+		return ;
+	printf("Data:\n");
+	printf("  Number of philosophers     : %d\n", data->num_philos);
+	printf("  Time to die (ms)           : %d\n", data->time_die);
+	printf("  Time to eat (ms)           : %d\n", data->time_eat);
+	printf("  Time to sleep (ms)         : %d\n", data->time_sleep);
+	printf("  Minimum meals per philos.  : %d\n", data->min_meals);
+	printf("  Start timestamp (ms)       : %d\n", data->start);
+	printf("  Simulation ended?          : %s\n", data->end ? "yes" : "no");
 }
+
 
 int	main(int ac, char **av)
 {
-	pthread_t t1;
+	t_data	*data;
 
-	(void)ac;
-	(void)av;
-
-	// void *res = NULL;
-	// pthread_create(&t1, NULL, &routine, "Hi!");
-	// pthread_join(t1, NULL);
-
-	return 0;
+	if (ac != 5 && ac != 6)
+		return (printf("Invalid args count\n"), 1);
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (printf("Allocation Error\n"), 0);
+	memset(data, 0, sizeof(t_data));
+	if (parse(data, av))
+		return (1);
+	print_data(data);
+	return (0);
 }
