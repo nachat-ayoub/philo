@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 10:16:58 by anachat           #+#    #+#             */
-/*   Updated: 2025/04/06 15:15:22 by anachat          ###   ########.fr       */
+/*   Created: 2025/04/06 19:22:27 by anachat           #+#    #+#             */
+/*   Updated: 2025/04/06 19:31:20 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int parse(t_data *data, char **av)
+void	start_dinner(t_data *data)
 {
-	if (!ft_atoi(av[1]) || !ft_atoi(av[2]) || !ft_atoi(av[3])
-		|| !ft_atoi(av[4]) || !ft_atoi(av[5]))
-		return (printf("Invalid Number\n"), 1);
-	data->num_philos = ft_atoi(av[1]);
-	data->time_die = ft_atoi(av[2]) * 1000; // to micro seconds
-	data->time_eat = ft_atoi(av[3]) * 1000;
-	data->time_sleep = ft_atoi(av[4]) * 1000;
-	data->min_meals = ft_atoi(av[5]);
-	return (0);
+	if (data->min_meals == -1)
+		return ;
+		
 }
