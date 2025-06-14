@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:10:59 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/14 12:00:32 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/14 16:52:44 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ struct	s_data
 int		ft_atoi(char *str);
 int		parse(t_data *data, char **av);
 int		data_init(t_data *data);
+void	start_dinner(t_data *data);
+int		simulation_end(t_data *data);
+
 int		mutex_handle(t_mutex *mutex, int code);
 int		thread_handle(pthread_t *thread, void *(*fn)(void *), void *arg, int code);
-int		simulation_end(t_data *data);
 int		get_int(t_mutex *mutex, int *val);
 void	set_int(t_mutex *mutex, int *dest, int val);
 

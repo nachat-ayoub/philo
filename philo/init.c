@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:20:42 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/14 12:16:34 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/14 16:47:09 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	data_init(t_data *data)
 
 	data->end = 0;
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
+	// TODO: handle leaks on malloc fail
 	if (!data->philos)
 		return (printf("Allocation Error\n"), 1);
 	data->forks = malloc(sizeof(t_fork) * data->num_philos);
@@ -52,6 +53,6 @@ int	data_init(t_data *data)
 	{
 		mutex_handle(&data->forks[i].fork, MUTEX_INIT);
 		data->forks[i].fork_id = i;
-	}
+	}	
 	return (0);
 }
