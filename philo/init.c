@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:20:42 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/14 11:39:35 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/14 12:16:34 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void philos_init(t_data *data)
 
 int	data_init(t_data *data)
 {
-	int i;
+	int	i;
+
 	data->end = 0;
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	if (!data->philos)
