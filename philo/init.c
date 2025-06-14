@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:20:42 by anachat           #+#    #+#             */
-/*   Updated: 2025/04/08 09:59:59 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/14 11:39:35 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void philos_init(t_data *data)
 	{
 		philo = data->philos + i;
 		philo->id = i + 1;
-		philo->meals_c = 0;
+		philo->meals_count = 0;
 		philo->is_full = 0;
 		philo->data = data;
 		set_forks(philo, data->forks, i);

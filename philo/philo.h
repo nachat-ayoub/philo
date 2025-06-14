@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:10:59 by anachat           #+#    #+#             */
-/*   Updated: 2025/04/07 16:20:34 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/14 12:00:32 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ typedef struct	s_fork
 
 typedef struct	s_philo
 {
-	long	meals_c;
-	long	last_eat;
-	int		is_full;
 	int		id;
+	int		is_full;
+	long	meals_count;
+	long	last_time_eat;
+	pthread_t       thread;
 	t_fork	*l_fork;
 	t_fork	*r_fork;
 	t_data	*data;
@@ -53,8 +54,8 @@ typedef struct	s_philo
 struct	s_data
 {
 	int		num_philos;
-	size_t	time_die;
-	size_t	time_eat;
+	size_t	time_to_die;
+	size_t	time_to_eat;
 	size_t	time_sleep;
 	int		min_meals;
 	int		start; // timestamp
