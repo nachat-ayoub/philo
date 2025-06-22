@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:45:49 by anachat           #+#    #+#             */
-/*   Updated: 2025/04/07 16:19:30 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/22 20:53:40 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,24 @@ void	clean(t_data **data)
 	*data = NULL;
 }
 
-size_t	get_time(void)
+void	print_action(t_philo *philo, char *action)
 {
-	struct timeval	time;
-	if (gettimeofday(&time, NULL) == -1)
-		return (write(2, "gettimeofday Error\n", 20), 0);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	long	timestamp;
+
+	mutex_handle(&philo->data->print_mtx, MUTEX_LOCK);
+	if (!philo->data->end_sim)
+	{
+		timestamp = (get_time() - philo->data->start);
+		printf("%ld %d %s\n", timestamp, philo->id, action);
+	}
+	mutex_handle(&philo->data->print_mtx, MUTEX_UNLOCK);
 }
 
-int	ft_usleep(size_t ms)
+void	ft_usleep(long duration_ms)
 {
-	size_t	start;
-	int		res;
+	long	start;
 
 	start = get_time();
-	while ((get_time() - start) < ms)
-		res = usleep(500);
-	return (res);
+	while ((get_time() - start) < duration_ms)
+		usleep(50);
 }

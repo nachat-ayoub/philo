@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:29:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/04/07 10:54:56 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/22 20:54:22 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	set_int(t_mutex *mutex, int *dest, int val)
 int	get_int(t_mutex *mutex, int *val)
 {
 	int	res;
+
 	mutex_handle(mutex, MUTEX_LOCK);
 	res = *val;
 	mutex_handle(mutex, MUTEX_UNLOCK);
@@ -56,5 +57,5 @@ int	get_int(t_mutex *mutex, int *val)
 
 int	simulation_end(t_data *data)
 {
-	return (get_int(data->data_mtx, &data->end));
+	return (get_int(&data->data_mtx, &data->end_sim));
 }

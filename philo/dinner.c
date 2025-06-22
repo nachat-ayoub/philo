@@ -3,18 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:22:27 by anachat           #+#    #+#             */
-/*   Updated: 2025/04/06 19:31:20 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/22 20:12:41 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	start_dinner(t_data *data)
+
+
+void	*start_dinner(void *arg)
 {
-	if (data->min_meals == -1)
-		return ;
-		
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	if (philo->data->num_philos == 1)
+	{
+		print_action(philo, "TTTTTT has taken a fork");
+		ft_usleep(philo->data->time_to_die);
+		// print_action(philo, "died");
+		return (NULL);
+	}
+	// while (!simulation_ended(philo->data))
+	// {
+		// think();
+		// take_forks();
+		// eat();
+		// put_forks();
+		// sleep();
+	// }
+	return (NULL);
 }
