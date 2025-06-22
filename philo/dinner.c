@@ -6,13 +6,11 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:22:27 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/22 20:12:41 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/22 21:06:50 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-
 
 void	*start_dinner(void *arg)
 {
@@ -21,7 +19,7 @@ void	*start_dinner(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->data->num_philos == 1)
 	{
-		print_action(philo, "TTTTTT has taken a fork");
+		print_action(philo, "has taken a fork");
 		ft_usleep(philo->data->time_to_die);
 		// print_action(philo, "died");
 		return (NULL);

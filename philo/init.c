@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:20:42 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/22 20:41:45 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/22 21:03:34 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	data_init(t_data *data)
 	data->end_sim = 0;
 	data->start = get_time();
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
+	// TODO: handle leaks on malloc fail
 	if (!data->philos)
 		return (printf("Allocation Error\n"), 1);
 	data->forks = malloc(sizeof(t_fork) * data->num_philos);
