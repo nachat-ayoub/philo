@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:29:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/22 20:54:22 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/23 11:37:24 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,30 @@ int	get_int(t_mutex *mutex, int *val)
 int	simulation_end(t_data *data)
 {
 	return (get_int(&data->data_mtx, &data->end_sim));
+}
+
+
+int	clean(t_data *data, int status)
+{
+	int	i;
+
+	if (!data)
+		return (status);
+	if (data->forks)
+	{
+		i = -1;
+		while (++i)
+			pthread_mutex_destroy(&data->forks[i].mtx);
+		free(data->forks);
+		data->forks = NULL;
+	}
+	if (data->philos)
+	{
+		free(data->philos);
+		data->philos = NULL;
+	}
+	pthread_mutex_destroy(&data->data_mtx);
+	pthread_mutex_destroy(&data->print_mtx);
+	free(data);
+	return (status);
 }

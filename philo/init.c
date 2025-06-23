@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:20:42 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/22 21:03:34 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/23 11:34:57 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	data_init(t_data *data)
 	i = 0;
 	while (i < data->num_philos)
 	{
-		mutex_handle(&data->forks[i].fork, MUTEX_INIT);
+		mutex_handle(&data->forks[i].mtx, MUTEX_INIT);
 		data->forks[i].fork_id = i;
 		thread_handle(&data->philos[i].thread, start_dinner, &data->philos[i], THREAD_CREATE);
 		// pthread_create(&data->philos[i].thread, NULL, start_dinner, &data->philos[i]);

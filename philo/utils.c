@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:45:49 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/22 20:53:40 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/23 11:25:38 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,6 @@ int	ft_atoi(char *str)
 			return (0);
 	}
 	return (nb);
-}
-
-void	clean(t_data **data)
-{
-	if (!data || !(*data))
-		return ;
-	free((*data)->philos);
-	free((*data)->forks);
-	free(*data);
-	*data = NULL;
 }
 
 void	print_action(t_philo *philo, char *action)

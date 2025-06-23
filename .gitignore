@@ -1,3 +1,4 @@
 .vscode
 ./philo/.vscode
 ./philo/*.o
+*.o

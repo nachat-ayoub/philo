@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:07:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/22 21:03:47 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/23 11:26:43 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,5 @@ int	main(int ac, char **av)
 		return (printf("Failed to create monitor thread")); // clean(data);
 	// thread_handle(&monitor_th, NULL, NULL, THREAD_JOIN);
 	pthread_join(monitor_th, NULL);
-	// clean(data);
-	return (0);
+	return (clean(data, 0));
 }

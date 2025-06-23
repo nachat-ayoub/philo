@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:10:59 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/22 21:06:47 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/23 11:33:46 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_data t_data;
 
 typedef struct	s_fork
 {
-	t_mutex	fork;
+	t_mutex	mtx;
 	int		fork_id;
 }	t_fork;
 
@@ -81,6 +81,12 @@ void	print_action(t_philo *philo, char *action);
 void	*start_dinner(void *arg);
 void    *monitor_routine(void *arg);
 int		simulation_ended(t_data *data);
+int		clean(t_data *data, int status);
 
+void	take_forks(t_philo *philo);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
+void	died(t_philo *philo);
 
 #endif
