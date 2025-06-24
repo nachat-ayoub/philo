@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:10:59 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/23 11:33:46 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/24 15:04:57 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@
 typedef pthread_mutex_t t_mutex;
 typedef struct s_data t_data;
 
-typedef struct	s_fork
-{
-	t_mutex	mtx;
-	int		fork_id;
-}	t_fork;
+// typedef struct	s_fork
+// {
+// 	t_mutex	mtx;
+// 	int		fork_id;
+// }	t_fork;
 
 typedef struct	s_philo
 {
@@ -46,8 +46,8 @@ typedef struct	s_philo
 	long		meals_count;
 	long		last_time_eat;
 	pthread_t	thread;
-	t_fork		*l_fork;
-	t_fork		*r_fork;
+	t_mutex		l_fork;
+	t_mutex		r_fork;
 	t_data		*data;
 }	t_philo;
 
@@ -60,10 +60,12 @@ struct	s_data
 	long	start; // timestamp
 	int		min_meals;
 	int		end_sim; // bool: 1 | 0
-	t_fork	*forks;
+	t_mutex	*forks;
 	t_philo	*philos;
 	t_mutex	data_mtx;
+	t_mutex	death_mtx;
 	t_mutex	print_mtx;
+	pthread_t	monitor_th;
 };
 
 int		ft_atoi(char *str);

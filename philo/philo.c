@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:07:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/23 11:26:43 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/24 15:04:50 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void f(){system("leaks philo");}
 int	main(int ac, char **av)
 {
 	t_data		*data;
-	pthread_t	monitor_th;
 
 	// atexit(f);
 	if (ac != 5 && ac != 6)
@@ -47,9 +46,6 @@ int	main(int ac, char **av)
 		return (1);
 	// print_data(data);
 	data_init(data);
-	if (thread_handle(&monitor_th, monitor_routine, data, THREAD_CREATE))
-		return (printf("Failed to create monitor thread")); // clean(data);
 	// thread_handle(&monitor_th, NULL, NULL, THREAD_JOIN);
-	pthread_join(monitor_th, NULL);
 	return (clean(data, 0));
 }

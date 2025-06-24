@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:06:16 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/23 11:55:44 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/24 14:54:51 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,25 @@
 void	take_forks(t_philo *philo)
 {
 	// mutex_handle(&philo->data->data_mtx, MUTEX_LOCK);
-
-	mutex_handle(&philo->r_fork->mtx, MUTEX_LOCK);
+	pthread_mutex_lock(&philo->r_fork);
 	print_action(philo, "has taken a fork");
-	mutex_handle(&philo->l_fork->mtx, MUTEX_LOCK);
+	pthread_mutex_lock(&philo->l_fork);
 	print_action(philo, "has taken a fork");
-
 	// mutex_handle(&philo->data->data_mtx, MUTEX_UNLOCK);
 }
 
 void	eating(t_philo *philo)
 {
-	mutex_handle(&philo->data->data_mtx, MUTEX_LOCK);
+	pthread_mutex_lock(&philo->data->data_mtx);
 	philo->meals_count++;
 	philo->last_time_eat = get_time();
 	print_action(philo, "is eating");
+	pthread_mutex_unlock(&philo->data->data_mtx);
 	ft_usleep(philo->data->time_to_eat);
-	mutex_handle(&philo->data->data_mtx, MUTEX_UNLOCK);
 
 	// put forks
-	mutex_handle(&philo->r_fork->mtx, MUTEX_UNLOCK);
-	mutex_handle(&philo->l_fork->mtx, MUTEX_UNLOCK);
+	pthread_mutex_unlock(&philo->r_fork);
+	pthread_mutex_unlock(&philo->l_fork);
 }
 
 void	sleeping(t_philo *philo)

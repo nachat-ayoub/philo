@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:29:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/23 11:37:24 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/24 14:54:27 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	clean(t_data *data, int status)
 	{
 		i = -1;
 		while (++i)
-			pthread_mutex_destroy(&data->forks[i].mtx);
+			pthread_mutex_destroy(&data->forks[i]);
 		free(data->forks);
 		data->forks = NULL;
 	}
