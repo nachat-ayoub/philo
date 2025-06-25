@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:45:49 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/23 11:25:38 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/25 18:55:58 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	ft_atoi(char *str)
 	long	nb;
 	size_t	i;
 
-	if (!str)
-		return (-1);
+	if (!str || str[0] == '\0')
+		return (0);
 	if (!(*str))
 		return (0);
 	i = 0;
@@ -51,13 +51,13 @@ void	print_action(t_philo *philo, char *action)
 {
 	long	timestamp;
 
-	mutex_handle(&philo->data->print_mtx, MUTEX_LOCK);
-	if (!philo->data->end_sim)
+	pthread_mutex_lock(&philo->data->print_mtx);
+	if (philo->data->simul_running)
 	{
 		timestamp = (get_time() - philo->data->start);
 		printf("%ld %d %s\n", timestamp, philo->id, action);
 	}
-	mutex_handle(&philo->data->print_mtx, MUTEX_UNLOCK);
+	pthread_mutex_unlock(&philo->data->print_mtx);
 }
 
 void	ft_usleep(long duration_ms)

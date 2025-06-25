@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:20:42 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/24 15:06:06 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/25 18:00:46 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ static void philos_init(t_data *data)
 		philo = &data->philos[i];
 		philo->id = i + 1;
 		philo->meals_count = 0;
-		philo->is_full = 0;
 		philo->last_time_eat = get_time();
 		philo->data = data;
-		philo->r_fork = data->forks[i];
-		philo->l_fork = data->forks[(i + 1) % num_philos];
+		philo->r_fork = &data->forks[i];
+		philo->l_fork = &data->forks[(i + 1) % num_philos];
 	}
 }
 
@@ -55,10 +54,10 @@ int	data_init(t_data *data)
 {
 	int	i;
 
-	mutex_handle(&data->data_mtx, MUTEX_INIT);
-	mutex_handle(&data->death_mtx, MUTEX_INIT);
-	mutex_handle(&data->print_mtx, MUTEX_INIT);
-	data->end_sim = 0;
+	pthread_mutex_init(&data->data_mtx, NULL);
+	pthread_mutex_init(&data->death_mtx, NULL);
+	pthread_mutex_init(&data->print_mtx, NULL);
+	data->simul_running = 1;
 	data->start = get_time();
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	// TODO: handle leaks on malloc fail
@@ -70,22 +69,20 @@ int	data_init(t_data *data)
 	i = 0;
 	while (i < data->num_philos)
 	{
-		mutex_handle(&data->forks[i], MUTEX_INIT);
-		// pthread_create(&data->philos[i].thread, NULL, start_dinner, &data->philos[i]);
+		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
-
 	philos_init(data);
 	i = 0;
 	while (i < data->num_philos)
 	{
-		thread_handle(&data->philos[i].thread, start_dinner, &data->philos[i], THREAD_CREATE);
+		pthread_create(&data->philos[i].thread, NULL, start_dinner, &data->philos[i]);
 		i++;
 	}
 	i = 0;
-	pthread_join(data->monitor_th, NULL);
-	if (thread_handle(&data->monitor_th, monitor_routine, data, THREAD_CREATE))
+	if (pthread_create(&data->monitor_th, NULL, monitor_routine, data))
 		return (printf("Failed to create monitor thread")); // clean(data);
+	pthread_join(data->monitor_th, NULL);
 	while (i < data->num_philos)
 	{
 		pthread_join(data->philos[i].thread, NULL);

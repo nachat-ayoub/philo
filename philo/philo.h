@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:10:59 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/24 15:04:57 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/25 18:50:39 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,47 +42,42 @@ typedef struct s_data t_data;
 typedef struct	s_philo
 {
 	int			id;
-	int			is_full;
 	long		meals_count;
 	long		last_time_eat;
 	pthread_t	thread;
-	t_mutex		l_fork;
-	t_mutex		r_fork;
+	t_mutex		*l_fork;
+	t_mutex		*r_fork;
 	t_data		*data;
 }	t_philo;
 
 struct	s_data
 {
-	int		num_philos;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_sleep;
-	long	start; // timestamp
-	int		min_meals;
-	int		end_sim; // bool: 1 | 0
-	t_mutex	*forks;
-	t_philo	*philos;
-	t_mutex	data_mtx;
-	t_mutex	death_mtx;
-	t_mutex	print_mtx;
+	int			num_philos;
+	long		time_to_die;
+	long		time_to_eat;
+	long		time_sleep;
+	long		start; // timestamp
+	int			min_meals;
+	int			simul_running; // bool: 1 | 0
+	int			all_ate; // bool: 1 | 0
+	t_mutex		*forks;
+	t_philo		*philos;
+	t_mutex		data_mtx;
+	t_mutex		death_mtx;
+	t_mutex		print_mtx;
 	pthread_t	monitor_th;
 };
 
 int		ft_atoi(char *str);
 int		parse(t_data *data, char **av);
 int		data_init(t_data *data);
-int		simulation_end(t_data *data);
+int		simulation_running(t_data *data);
 
-int		mutex_handle(t_mutex *mutex, int code);
-int		thread_handle(pthread_t *thread, void *(*fn)(void *), void *arg, int code);
-int		get_int(t_mutex *mutex, int *val);
-void	set_int(t_mutex *mutex, int *dest, int val);
 long	get_time();
 void	ft_usleep(long duration_ms);
 void	print_action(t_philo *philo, char *action);
 void	*start_dinner(void *arg);
 void    *monitor_routine(void *arg);
-int		simulation_ended(t_data *data);
 int		clean(t_data *data, int status);
 
 void	take_forks(t_philo *philo);
@@ -90,5 +85,18 @@ void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
 void	died(t_philo *philo);
+
+
+
+
+
+
+
+
+
+
+
+
+void	print_data(t_data *data);
 
 #endif

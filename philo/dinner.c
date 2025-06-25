@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:22:27 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/23 11:39:35 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/25 18:28:58 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	*start_dinner(void *arg)
 		ft_usleep(philo->data->time_to_die);
 		return (NULL);
 	}
-	// if (philo->id % 2 == 1)
-	// 	ft_usleep(1);
-	while (!simulation_ended(philo->data))
+	if (philo->id % 2 == 0)
+		ft_usleep(100);
+	while (simulation_running(philo->data))
 	{
 		take_forks(philo);
 		eating(philo);

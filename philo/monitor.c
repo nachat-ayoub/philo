@@ -6,21 +6,21 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 10:20:08 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/24 15:33:47 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/25 18:24:11 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	simulation_ended(t_data *data)
+int	simulation_running(t_data *data)
 {
-	int	ended;
+	int	run;
 
-	ended = 0;
+	run = 1;
 	pthread_mutex_lock(&data->death_mtx);
-	ended = data->end_sim;
+	run = data->simul_running;
 	pthread_mutex_unlock(&data->death_mtx);
-	return (ended);
+	return (run);
 }
 
 static void check_philos_death(t_data *data)
@@ -29,25 +29,47 @@ static void check_philos_death(t_data *data)
 	long	curr_time;
 	int		i;
 
-	i = 0;
-	while(i < data->num_philos)
+	i = -1;
+	while(++i < data->num_philos)
 	{
 		philo = &data->philos[i];
 		curr_time = get_time();
 		pthread_mutex_lock(&data->death_mtx);
-		// print the condition values
-		if ((curr_time - philo->last_time_eat) >= data->time_to_die)
+		if ((curr_time - philo->last_time_eat) > data->time_to_die)
 		{
-			data->end_sim = 1;
+			data->simul_running = 0;
 			pthread_mutex_unlock(&data->death_mtx);
 			pthread_mutex_lock(&data->print_mtx);
 			printf("%ld %d died\n", curr_time - data->start, philo->id);
 			pthread_mutex_unlock(&data->print_mtx);
 			break;
 		}
-		pthread_mutex_unlock(&data->death_mtx);
-		i++;
 	}
+}
+
+static void check_philos_ate(t_data *data)
+{
+	t_philo	*philo;
+	int		i;
+	int		all_ate;
+
+	all_ate = 1;
+	i = -1;
+	while(++i < data->num_philos)
+	{
+		philo = &data->philos[i];
+		pthread_mutex_lock(&data->death_mtx);
+		if (philo->meals_count < data->min_meals)
+			all_ate = 0;
+		pthread_mutex_unlock(&data->death_mtx);
+	}
+	pthread_mutex_lock(&data->death_mtx);
+	if (all_ate)
+	{
+		printf("All philosophers have eaten at least %d times. Simulation ends.\n", data->min_meals);
+		data->simul_running = 0;
+	}
+	pthread_mutex_unlock(&data->death_mtx);
 }
 
 void	*monitor_routine(void *arg)
@@ -55,12 +77,12 @@ void	*monitor_routine(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
-	printf("Monitor thread started\n");
-	while (1)
+	while (simulation_running(data))
 	{
-		if (simulation_ended(data))
-			break;
 		check_philos_death(data);
+		if (data->min_meals != -1)
+			check_philos_ate(data);
+		ft_usleep(1000);
 	}
 	return (NULL);
 }

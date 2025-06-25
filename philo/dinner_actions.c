@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:06:16 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/24 14:54:51 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/25 18:18:33 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,20 @@
 
 void	take_forks(t_philo *philo)
 {
-	// mutex_handle(&philo->data->data_mtx, MUTEX_LOCK);
-	pthread_mutex_lock(&philo->r_fork);
-	print_action(philo, "has taken a fork");
-	pthread_mutex_lock(&philo->l_fork);
-	print_action(philo, "has taken a fork");
-	// mutex_handle(&philo->data->data_mtx, MUTEX_UNLOCK);
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->l_fork);
+		print_action(philo, "has taken a fork");
+		pthread_mutex_lock(philo->r_fork);
+		print_action(philo, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(philo->r_fork);
+		print_action(philo, "has taken a fork");
+		pthread_mutex_lock(philo->l_fork);
+		print_action(philo, "has taken a fork");
+	}
 }
 
 void	eating(t_philo *philo)
@@ -32,8 +40,8 @@ void	eating(t_philo *philo)
 	ft_usleep(philo->data->time_to_eat);
 
 	// put forks
-	pthread_mutex_unlock(&philo->r_fork);
-	pthread_mutex_unlock(&philo->l_fork);
+	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
 }
 
 void	sleeping(t_philo *philo)
