@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:10:59 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/25 18:50:39 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/25 22:06:14 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
-#include <unistd.h>
+# include <unistd.h>
 
 # define MUTEX_LOCK     1
 # define MUTEX_UNLOCK   2
@@ -30,16 +30,10 @@
 # define THREAD_JOIN     2
 # define THREAD_DETACH   3
 
-typedef pthread_mutex_t t_mutex;
-typedef struct s_data t_data;
+typedef pthread_mutex_t	t_mutex;
+typedef struct s_data	t_data;
 
-// typedef struct	s_fork
-// {
-// 	t_mutex	mtx;
-// 	int		fork_id;
-// }	t_fork;
-
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int			id;
 	long		meals_count;
@@ -56,13 +50,12 @@ struct	s_data
 	long		time_to_die;
 	long		time_to_eat;
 	long		time_sleep;
-	long		start; // timestamp
+	long		start;
 	int			min_meals;
-	int			simul_running; // bool: 1 | 0
-	int			all_ate; // bool: 1 | 0
+	int			simul_running;
+	int			all_ate;
 	t_mutex		*forks;
 	t_philo		*philos;
-	t_mutex		data_mtx;
 	t_mutex		death_mtx;
 	t_mutex		print_mtx;
 	pthread_t	monitor_th;
@@ -73,29 +66,17 @@ int		parse(t_data *data, char **av);
 int		data_init(t_data *data);
 int		simulation_running(t_data *data);
 
-long	get_time();
+long	get_time(void);
 void	ft_usleep(long duration_ms);
 void	print_action(t_philo *philo, char *action);
 void	*start_dinner(void *arg);
-void    *monitor_routine(void *arg);
+void	*monitor_routine(void *arg);
 int		clean(t_data *data, int status);
 
 void	take_forks(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
-void	died(t_philo *philo);
-
-
-
-
-
-
-
-
-
-
-
 
 void	print_data(t_data *data);
 

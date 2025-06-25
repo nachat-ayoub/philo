@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 10:20:08 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/25 18:24:11 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/25 22:09:01 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int	simulation_running(t_data *data)
 	return (run);
 }
 
-static void check_philos_death(t_data *data)
+static void	check_philos_death(t_data *data)
 {
 	t_philo	*philo;
 	long	curr_time;
 	int		i;
 
 	i = -1;
-	while(++i < data->num_philos)
+	while (++i < data->num_philos)
 	{
 		philo = &data->philos[i];
 		curr_time = get_time();
@@ -42,20 +42,21 @@ static void check_philos_death(t_data *data)
 			pthread_mutex_lock(&data->print_mtx);
 			printf("%ld %d died\n", curr_time - data->start, philo->id);
 			pthread_mutex_unlock(&data->print_mtx);
-			break;
+			break ;
 		}
+		pthread_mutex_unlock(&data->death_mtx);
 	}
 }
 
-static void check_philos_ate(t_data *data)
+static void	check_philos_ate(t_data *data)
 {
 	t_philo	*philo;
-	int		i;
 	int		all_ate;
+	int		i;
 
 	all_ate = 1;
 	i = -1;
-	while(++i < data->num_philos)
+	while (++i < data->num_philos)
 	{
 		philo = &data->philos[i];
 		pthread_mutex_lock(&data->death_mtx);
@@ -63,13 +64,12 @@ static void check_philos_ate(t_data *data)
 			all_ate = 0;
 		pthread_mutex_unlock(&data->death_mtx);
 	}
-	pthread_mutex_lock(&data->death_mtx);
 	if (all_ate)
 	{
-		printf("All philosophers have eaten at least %d times. Simulation ends.\n", data->min_meals);
+		pthread_mutex_lock(&data->death_mtx);
 		data->simul_running = 0;
+		pthread_mutex_unlock(&data->death_mtx);
 	}
-	pthread_mutex_unlock(&data->death_mtx);
 }
 
 void	*monitor_routine(void *arg)
