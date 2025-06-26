@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 10:20:08 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/26 11:46:59 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/26 21:17:47 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	check_philos_death(t_data *data)
 		pthread_mutex_lock(&data->death_mtx);
 		if ((get_time() - philo->last_time_eat) > data->time_to_die)
 		{
-			data->simul_running = 0;
 			pthread_mutex_unlock(&data->death_mtx);
+			set_simulation_running(data, 0);
 			pthread_mutex_lock(&data->print_mtx);
 			printf("%ld %d died\n", get_time() - data->start, philo->id);
 			pthread_mutex_unlock(&data->print_mtx);

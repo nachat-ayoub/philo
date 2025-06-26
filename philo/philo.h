@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 10:16:22 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/26 12:42:45 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/26 21:16:23 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <unistd.h>
+
+
+// static int n = 0;
+// # define malloc(x) (n++ == 6 ? NULL : (malloc(x)))
 
 typedef pthread_mutex_t	t_mutex;
 typedef struct s_data	t_data;
@@ -61,6 +65,7 @@ void	*safe_malloc(size_t size);
 int		parse(t_data *data, char **av);
 int		data_init(t_data *data);
 int		simulation_running(t_data *data);
+void	set_simulation_running(t_data *data, int val);
 int		clean(t_data *data, int status);
 
 void	*start_dinner(void *arg);

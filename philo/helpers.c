@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:29:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/26 12:40:58 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/26 21:16:14 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ int	simulation_running(t_data *data)
 	pthread_mutex_unlock(&data->death_mtx);
 	return (run);
 }
+
+
+void	set_simulation_running(t_data *data, int val)
+{
+	pthread_mutex_lock(&data->death_mtx);
+	data->simul_running = val;
+	pthread_mutex_unlock(&data->death_mtx);
+}
+
 
 int	clean(t_data *data, int status)
 {

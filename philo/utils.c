@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:45:49 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/26 11:20:11 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/26 21:20:41 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ void	print_action(t_philo *philo, char *action)
 	long	timestamp;
 
 	pthread_mutex_lock(&philo->data->print_mtx);
-	if (philo->data->simul_running)
+	if (simulation_running(philo->data))
 	{
 		timestamp = (get_time() - philo->data->start);
 		printf("%ld %d %s\n", timestamp, philo->id, action);
+		pthread_mutex_unlock(&philo->data->print_mtx);
 	}
 	pthread_mutex_unlock(&philo->data->print_mtx);
 }
@@ -66,7 +67,10 @@ void	ft_sleep(long duration_ms)
 
 	start = get_time();
 	while ((get_time() - start) < duration_ms)
+	{
+		
 		usleep(100);
+	}
 }
 
 void	*safe_malloc(size_t size)
