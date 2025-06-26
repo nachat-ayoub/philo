@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:07:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/25 22:06:34 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/26 11:29:47 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ int	main(int ac, char **av)
 
 	if (ac != 5 && ac != 6)
 		return (printf("Invalid args count\n"), 1);
-	data = malloc(sizeof(t_data));
+	data = safe_malloc(sizeof(t_data));
 	if (!data)
-		return (printf("Allocation Error\n"), 1);
-	memset(data, 0, sizeof(t_data));
+		return (1);
 	data->min_meals = -1;
 	data->simul_running = 1;
 	data->start = get_time();

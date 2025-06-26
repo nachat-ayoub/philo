@@ -6,27 +6,21 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:20:42 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/25 22:07:59 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/26 12:46:02 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	get_time(void)
-{
-	struct timeval	tv;
-
-	if (gettimeofday(&tv, NULL) != 0)
-		return (-1);
-	return (tv.tv_sec * 1000L + tv.tv_usec / 1000);
-}
-
-static void	philos_init(t_data *data)
+static int	philos_init(t_data *data)
 {
 	t_philo	*philo;
 	int		num_philos;
 	int		i;
 
+	data->philos = safe_malloc(sizeof(t_philo) * data->num_philos);
+	if (!data->philos)
+		return (1);
 	num_philos = data->num_philos;
 	i = -1;
 	while (++i < num_philos)
@@ -39,15 +33,16 @@ static void	philos_init(t_data *data)
 		philo->r_fork = &data->forks[i];
 		philo->l_fork = &data->forks[(i + 1) % num_philos];
 	}
+	return (0);
 }
 
 static int	init_forks(t_data *data, int len)
 {
 	int	i;
 
-	data->forks = malloc(sizeof(t_mutex) * data->num_philos);
+	data->forks = safe_malloc(sizeof(t_mutex) * data->num_philos);
 	if (!data->forks)
-		return (printf("Allocation Error\n"), 1);
+		return (1);
 	i = -1;
 	while (++i < len)
 	{
@@ -61,26 +56,54 @@ static int	init_forks(t_data *data, int len)
 	return (0);
 }
 
+static void	detach_philos_threads(t_philo *philos, int num_philos)
+{
+	while (--num_philos)
+	{
+		if (pthread_detach(philos[num_philos].thread) != 0)
+		{
+			printf("Failed to detach philo thread %d\n", philos[num_philos].id);
+			return ;
+		}
+	}
+}
+
+static void	create_philos_threads(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->num_philos)
+	{
+		if (pthread_create(&data->philos[i].thread, NULL,
+				start_dinner, &data->philos[i]) != 0)
+		{	
+			printf("Failed to create philosopher thread\n");
+			detach_philos_threads(data->philos, i);
+			return ;
+		}
+		i++;
+	}
+}
+
 int	data_init(t_data *data)
 {
 	int	i;
 
-	data->philos = malloc(sizeof(t_philo) * data->num_philos);
-	if (!data->philos)
-		return (printf("Allocation Error\n"), 1);
-	if (init_forks(data->forks, data->num_philos))
+	if (init_forks(data, data->num_philos))
 		return (1);
 	if (pthread_mutex_init(&data->death_mtx, NULL) != 0)
-		return (1);
+		return (free(data->philos), data->philos = NULL, 1);
 	if (pthread_mutex_init(&data->print_mtx, NULL) != 0)
-		return (1);
-	philos_init(data);
-	i = -1;
-	while (++i < data->num_philos)
-		pthread_create(&data->philos[i].thread, NULL,
-			start_dinner, &data->philos[i]);
+		return (pthread_mutex_destroy(&data->death_mtx),
+			free(data->philos), data->philos = NULL, 1);
+	if (philos_init(data))
+		return (pthread_mutex_destroy(&data->death_mtx),
+			pthread_mutex_destroy(&data->print_mtx), 1);
+	create_philos_threads(data);
 	if (pthread_create(&data->monitor_th, NULL, monitor_routine, data))
-		return (printf("Failed to create monitor thread"), 1);
+		return (printf("Failed to create monitor thread"),
+			detach_philos_threads(data->philos, data->num_philos), 1);
 	i = -1;
 	while (++i < data->num_philos)
 		pthread_join(data->philos[i].thread, NULL);

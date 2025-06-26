@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:45:49 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/25 21:39:05 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/26 11:20:11 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,22 @@ void	print_action(t_philo *philo, char *action)
 	pthread_mutex_unlock(&philo->data->print_mtx);
 }
 
-void	ft_usleep(long duration_ms)
+void	ft_sleep(long duration_ms)
 {
 	long	start;
 
 	start = get_time();
 	while ((get_time() - start) < duration_ms)
-		usleep(50);
+		usleep(100);
+}
+
+void	*safe_malloc(size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(size);
+	if (!ptr)
+		return (printf("Allocation Error\n"), NULL);
+	memset(ptr, 0, size);
+	return (ptr);
 }

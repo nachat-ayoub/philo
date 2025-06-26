@@ -6,11 +6,31 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:29:14 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/25 22:01:15 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/26 12:40:58 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+long	get_time(void)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) != 0)
+		return (-1);
+	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
+}
+
+int	simulation_running(t_data *data)
+{
+	int	run;
+
+	run = 1;
+	pthread_mutex_lock(&data->death_mtx);
+	run = data->simul_running;
+	pthread_mutex_unlock(&data->death_mtx);
+	return (run);
+}
 
 int	clean(t_data *data, int status)
 {

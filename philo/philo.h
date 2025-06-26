@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 16:10:59 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/25 22:06:14 by anachat          ###   ########.fr       */
+/*   Created: 2025/06/26 10:16:22 by anachat           #+#    #+#             */
+/*   Updated: 2025/06/26 12:42:45 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,6 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <unistd.h>
-
-# define MUTEX_LOCK     1
-# define MUTEX_UNLOCK   2
-# define MUTEX_INIT     3
-# define MUTEX_DESTROY  4
-
-# define THREAD_CREATE   1
-# define THREAD_JOIN     2
-# define THREAD_DETACH   3
 
 typedef pthread_mutex_t	t_mutex;
 typedef struct s_data	t_data;
@@ -62,22 +53,22 @@ struct	s_data
 };
 
 int		ft_atoi(char *str);
+long	get_time(void);
+void	ft_sleep(long duration_ms);
+void	print_action(t_philo *philo, char *action);
+void	*safe_malloc(size_t size);
+
 int		parse(t_data *data, char **av);
 int		data_init(t_data *data);
 int		simulation_running(t_data *data);
+int		clean(t_data *data, int status);
 
-long	get_time(void);
-void	ft_usleep(long duration_ms);
-void	print_action(t_philo *philo, char *action);
 void	*start_dinner(void *arg);
 void	*monitor_routine(void *arg);
-int		clean(t_data *data, int status);
 
 void	take_forks(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
-
-void	print_data(t_data *data);
 
 #endif

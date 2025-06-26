@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:22:27 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/25 22:08:07 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/26 11:21:06 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	*start_dinner(void *arg)
 	if (philo->data->num_philos == 1)
 	{
 		print_action(philo, "has taken a fork");
-		ft_usleep(philo->data->time_to_die);
+		ft_sleep(philo->data->time_to_die);
 		return (NULL);
 	}
 	if (philo->id % 2 == 0)
-		ft_usleep(100);
+		ft_sleep(100);
 	while (simulation_running(philo->data))
 	{
 		take_forks(philo);
