@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 10:20:08 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/26 11:46:59 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/27 18:23:02 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	*monitor_routine(void *arg)
 		check_philos_death(data);
 		if (data->min_meals != -1)
 			check_philos_ate(data);
-		ft_sleep(1);
+		ft_sleep(1, data);
 	}
 	return (NULL);
 }

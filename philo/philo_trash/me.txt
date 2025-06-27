@@ -6,3 +6,4 @@ DIE 4 310 200 100
 
 
  #-fsanitize=thread -g3
+./philo 4 800 200 200 // test me
