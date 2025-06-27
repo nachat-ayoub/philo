@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:06:16 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/27 11:48:39 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/27 11:53:20 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	take_forks(t_philo *philo)
 {
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(philo->l_fork);
-		print_action(philo, "has taken a fork");
+	// if (philo->id % 2 == 0)
+	// {
+	// 	pthread_mutex_lock(philo->l_fork);
+	// 	print_action(philo, "has taken a fork");
+	// 	pthread_mutex_lock(philo->r_fork);
+	// 	print_action(philo, "has taken a fork");
+	// }
+	// else
+	// {
 		pthread_mutex_lock(philo->r_fork);
 		print_action(philo, "has taken a fork");
-	}
-	else
-	{
-		pthread_mutex_lock(philo->r_fork);
-		print_action(philo, "has taken a fork");
 		pthread_mutex_lock(philo->l_fork);
 		print_action(philo, "has taken a fork");
-	}
+	// }
 }
 
 void	eating(t_philo *philo)

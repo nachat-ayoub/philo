@@ -3,6 +3,12 @@
 # Path to your program
 PHILO="./philo"
 
+# Colors
+GREEN="\033[1;32m"
+RED="\033[1;31m"
+BLUE="\033[1;34m"
+NC="\033[0m" # No Color
+
 # Array of tests where one philosopher should die (word 'died' must appear)
 die_tests=(
   "4 310 200 100 2"
@@ -34,36 +40,36 @@ no_die_tests=(
 pass_count=0
 fail_count=0
 
-echo "Starting tests for ./philo..."
+echo -e "${BLUE}Starting tests for ./philo...${NC}"
 
-echo -e "\n-- Tests where a philosopher should die (looking for 'died') --"
+echo -e "\n${BLUE}-- Tests where a philosopher should die (looking for 'died') --${NC}"
 for i in "${!die_tests[@]}"; do
   args=${die_tests[$i]}
   echo -n "TEST $i (args: $args): "
   output=$($PHILO $args 2>&1)
   if echo "$output" | grep -q "died"; then
-    echo "PASS"
+    echo -e "${GREEN}PASS${NC}"
     ((pass_count++))
   else
-    echo "FAIL (no 'died' found)"
+    echo -e "${RED}FAIL${NC} (no 'died' found)"
     ((fail_count++))
   fi
 done
 
-echo -e "\n-- Tests where no philosopher should die (no 'died' expected) --"
+echo -e "\n${BLUE}-- Tests where no philosopher should die (no 'died' expected) --${NC}"
 for i in "${!no_die_tests[@]}"; do
   args=${no_die_tests[$i]}
   echo -n "TEST $i (args: $args): "
   output=$($PHILO $args 2>&1)
   if echo "$output" | grep -q "died"; then
-    echo "FAIL ('died' found)"
+    echo -e "${RED}FAIL${NC} ('died' found)"
     ((fail_count++))
   else
-    echo "PASS"
+    echo -e "${GREEN}PASS${NC}"
     ((pass_count++))
   fi
 done
 
-echo -e "\nTesting complete."
-echo "Passed: $pass_count"
-echo "Failed: $fail_count"
+echo -e "\n${BLUE}Testing complete.${NC}"
+echo -e "${GREEN}Passed: $pass_count${NC}"
+echo -e "${RED}Failed: $fail_count${NC}"
