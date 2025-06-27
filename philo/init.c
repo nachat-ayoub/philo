@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:20:42 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/26 12:46:02 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/27 11:26:29 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ static int	philos_init(t_data *data)
 		return (1);
 	num_philos = data->num_philos;
 	i = -1;
+	data->start = get_time();
 	while (++i < num_philos)
 	{
 		philo = &data->philos[i];
 		philo->id = i + 1;
 		philo->meals_count = 0;
-		philo->last_time_eat = get_time();
 		philo->data = data;
 		philo->r_fork = &data->forks[i];
 		philo->l_fork = &data->forks[(i + 1) % num_philos];
+		philo->last_time_eat = get_time();
 	}
 	return (0);
 }
