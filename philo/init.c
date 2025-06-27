@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:20:42 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/27 11:26:29 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/27 12:28:31 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	create_philos_threads(t_data *data)
 	{
 		if (pthread_create(&data->philos[i].thread, NULL,
 				start_dinner, &data->philos[i]) != 0)
-		{	
+		{
 			printf("Failed to create philosopher thread\n");
 			detach_philos_threads(data->philos, i);
 			return ;
