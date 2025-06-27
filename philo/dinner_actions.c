@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dinner_actions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: anachat <anachat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:06:16 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/27 11:53:20 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/27 15:56:08 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	take_forks(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	ft_sleep(philo->data->time_to_eat);
 	print_action(philo, "is eating");
+	ft_sleep(philo->data->time_to_eat);
 	pthread_mutex_lock(&philo->data->death_mtx);
 	philo->meals_count++;
 	philo->last_time_eat = get_time();
