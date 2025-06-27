@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 15:20:42 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/27 12:28:31 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/27 18:15:32 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	init_forks(t_data *data, int len)
 	while (++i < len)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-		{	
+		{
 			while (--i)
 				pthread_mutex_destroy(&data->forks[i]);
 			return (free(data->forks), data->forks = NULL, 1);
