@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:45:49 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/27 18:25:06 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/27 18:37:56 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,6 @@ void	*safe_malloc(size_t size)
 	memset(ptr, 0, size);
 	return (ptr);
 }
-
-// void	ft_sleep(long duration_ms)
-// {
-// 	long	start;
-
-// 	start = get_time();
-// 	while ((get_time() - start) < duration_ms)
-// 		usleep(100);
-// }
 
 void	ft_sleep(long duration_ms, t_data *data)
 {

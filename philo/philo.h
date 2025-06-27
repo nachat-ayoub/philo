@@ -6,7 +6,7 @@
 /*   By: anachat <anachat@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 10:16:22 by anachat           #+#    #+#             */
-/*   Updated: 2025/06/27 18:22:01 by anachat          ###   ########.fr       */
+/*   Updated: 2025/06/27 18:38:08 by anachat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ struct	s_data
 
 int		ft_atoi(char *str);
 long	get_time(void);
-// void	ft_sleep(long duration_ms);
 void	ft_sleep(long duration_ms, t_data *data);
 void	print_action(t_philo *philo, char *action);
 void	*safe_malloc(size_t size);
